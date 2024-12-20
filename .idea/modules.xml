@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/javax-test.iml" filepath="$PROJECT_DIR$/javax-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yclicker-java.iml" filepath="$PROJECT_DIR$/yclicker-java.iml" />
     </modules>
   </component>
 </project>

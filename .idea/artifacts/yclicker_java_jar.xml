@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yclicker-java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/yclicker_java_jar</output-path>
+    <root id="archive" name="yclicker-java.jar">
+      <element id="module-output" name="yclicker-java" />
+    </root>
+  </artifact>
+</component>
