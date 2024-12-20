@@ -56,8 +56,6 @@ public class Clicker extends JFrame {
         if (maxDelay.isEmpty() && minDelay.isEmpty())
             return;
 
-        enabled = true;
-
         if (maxDelay.isEmpty())
             maxDelay = minDelay;
         else if (minDelay.isEmpty())
@@ -68,6 +66,11 @@ public class Clicker extends JFrame {
             minDelay = maxDelay;
             maxDelay = tmp;
         }
+
+        if (minDelay.get() < 0.1)
+            return;
+
+        enabled = true;
 
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
