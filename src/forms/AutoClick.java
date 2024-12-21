@@ -15,6 +15,7 @@ public class AutoClick {
     private static final int DEFAULT_HOLD_TIME = 25;
 
     private static boolean enabled = false;
+    private static boolean suppressed = true;
     private static boolean doubleClick = false;
     private static int maxDelay = 100;
     private static int minDelay = 100;
@@ -33,7 +34,8 @@ public class AutoClick {
                 }
 
                 try {
-                    leftClickPb.start();
+                    if (!suppressed)
+                        leftClickPb.start();
                 } catch (IOException e) {}
             }
         }
@@ -115,5 +117,9 @@ public class AutoClick {
 
     public static void setDefaultHoldTime() {
         setHoldTime(DEFAULT_HOLD_TIME);
+    }
+
+    public static void setSuppressed(boolean suppressed) {
+        AutoClick.suppressed = suppressed;
     }
 }

@@ -37,6 +37,18 @@ public class Clicker extends JFrame {
 
             return false;
         });
+
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent windowEvent) {
+                AutoClick.setSuppressed(true);
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent windowEvent) {
+                AutoClick.setSuppressed(false);
+            }
+        });
     }
 
     private void startButtonClicked() {
