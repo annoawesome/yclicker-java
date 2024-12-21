@@ -15,6 +15,7 @@ public class Clicker extends JFrame {
     private JComboBox<String> mouseButtonCombo;
     private JComboBox<String> clickTypeCombo;
     private JTextField holdTimeField;
+    private JCheckBox suppressWhenFocusedCheckBox;
 
     boolean enabled = false;
 
@@ -41,7 +42,8 @@ public class Clicker extends JFrame {
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent windowEvent) {
-                AutoClick.setSuppressed(true);
+                if (suppressWhenFocusedCheckBox.isSelected())
+                    AutoClick.setSuppressed(true);
             }
 
             @Override
@@ -83,6 +85,10 @@ public class Clicker extends JFrame {
 
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
+
+        // ensure that suppression is off
+        if (!suppressWhenFocusedCheckBox.isSelected())
+            AutoClick.setSuppressed(false);
 
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
         AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
