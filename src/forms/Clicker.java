@@ -25,29 +25,16 @@ public class Clicker extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                startButtonClicked();
-            }
-        });
+        startButton.addActionListener(actionEvent -> startButtonClicked());
 
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                stopButtonClicked();
-            }
-        });
+        stopButton.addActionListener(actionEvent -> stopButtonClicked());
 
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-                if (keyEvent.getID() == KeyEvent.KEY_PRESSED && keyEvent.getKeyCode() == KeyEvent.VK_F8) {
-                    toggleClicker();
-                }
-
-                return false;
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyEvent -> {
+            if (keyEvent.getID() == KeyEvent.KEY_PRESSED && keyEvent.getKeyCode() == KeyEvent.VK_F8) {
+                toggleClicker();
             }
+
+            return false;
         });
     }
 
