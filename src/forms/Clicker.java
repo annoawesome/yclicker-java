@@ -94,6 +94,12 @@ public class Clicker extends JFrame {
     }
 
     private void setCloseOperation() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                AutoClick.killDaemon();
+                System.exit(0);
+            }
+        });
     }
 }

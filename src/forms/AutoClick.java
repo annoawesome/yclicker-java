@@ -60,9 +60,14 @@ public class AutoClick {
         return HexFormat.of().toHexDigits(hex).substring(6);
     }
 
+    public static void killDaemon() {
+        if (yDoToolDaemonProcess != null && yDoToolDaemonProcess.isAlive())
+            yDoToolDaemonProcess.destroy();
+    }
+
     public static void disableAutoClicker() {
         enabled = false;
-        yDoToolDaemonProcess.destroy();
+        killDaemon();
     }
 
     public static void setClickDelay(int max, int min) {
