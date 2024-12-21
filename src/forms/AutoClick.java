@@ -12,12 +12,14 @@ public class AutoClick {
     private static final int MIDDLE_MB = 0x02;
     private static final int MOUSE_DOWN_MASK = 0x40;
     private static final int MOUSE_UP_MASK = 0x80;
+    private static final int DEFAULT_HOLD_TIME = 25;
 
     private static boolean enabled = false;
     private static boolean doubleClick = false;
     private static int maxDelay = 100;
     private static int minDelay = 100;
     private static int mouseButtonHexCode = LEFT_MB;
+    private static int holdTime = DEFAULT_HOLD_TIME;
 
     private static Runnable clickRunnable = new Runnable() {
         @Override
@@ -48,6 +50,7 @@ public class AutoClick {
             leftClickPb.command(
                     "ydotool",
                     "click",
+                    "--next-delay=" + holdTime,
                     toSmallHex(mouseButtonHexCode),
                     toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
                     toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK),
@@ -58,6 +61,7 @@ public class AutoClick {
             leftClickPb.command(
                     "ydotool",
                     "click",
+                    "--next-delay=" + holdTime,
                     toSmallHex(mouseButtonHexCode),
                     toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
                     toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK)
@@ -103,5 +107,13 @@ public class AutoClick {
 
     public static void setDoubleClick(boolean newDoubleClick) {
         doubleClick = newDoubleClick;
+    }
+
+    public static void setHoldTime(int hT) {
+        holdTime = hT;
+    }
+
+    public static void setDefaultHoldTime() {
+        setHoldTime(DEFAULT_HOLD_TIME);
     }
 }

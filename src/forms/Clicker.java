@@ -14,6 +14,7 @@ public class Clicker extends JFrame {
     private JButton stopButton;
     private JComboBox<String> mouseButtonCombo;
     private JComboBox<String> clickTypeCombo;
+    private JTextField holdTimeField;
 
     boolean enabled = false;
 
@@ -59,6 +60,13 @@ public class Clicker extends JFrame {
         if (minDelay.get() < 0.1)
             return;
 
+        Optional<Integer> holdTime = getIntFromString(holdTimeField.getText());
+
+        if (holdTime.isEmpty())
+            AutoClick.setDefaultHoldTime();
+        else
+            AutoClick.setHoldTime(holdTime.get());
+
         enabled = true;
 
         startButton.setEnabled(false);
@@ -89,6 +97,14 @@ public class Clicker extends JFrame {
     private Optional<Double> getDoubleFromString(String str) {
         try {
             return Optional.of(Double.parseDouble(str));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<Integer> getIntFromString(String str) {
+        try {
+            return Optional.of(Integer.parseInt(str));
         } catch (NumberFormatException e) {
             return Optional.empty();
         }
