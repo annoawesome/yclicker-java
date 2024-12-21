@@ -66,6 +66,7 @@ public class Clicker extends JFrame {
 
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
         AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
+        AutoClick.setDoubleClick("Double".equals((String) clickTypeCombo.getSelectedItem()));
         AutoClick.enableAutoClicker();
     }
 

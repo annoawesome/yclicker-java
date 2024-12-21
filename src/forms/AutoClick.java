@@ -1,7 +1,9 @@
 package forms;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Random;
 
 public class AutoClick {
@@ -12,6 +14,7 @@ public class AutoClick {
     private static final int MOUSE_UP_MASK = 0x80;
 
     private static boolean enabled = false;
+    private static boolean doubleClick = false;
     private static int maxDelay = 100;
     private static int minDelay = 100;
     private static int mouseButtonHexCode = LEFT_MB;
@@ -40,13 +43,26 @@ public class AutoClick {
 
     public static void enableAutoClicker() {
         enabled = true;
-        leftClickPb.command(
-                "ydotool",
-                "click",
-                toSmallHex(mouseButtonHexCode),
-                toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
-                toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK)
-        );
+
+        if (doubleClick) {
+            leftClickPb.command(
+                    "ydotool",
+                    "click",
+                    toSmallHex(mouseButtonHexCode),
+                    toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
+                    toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK),
+                    toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
+                    toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK)
+            );
+        } else {
+            leftClickPb.command(
+                    "ydotool",
+                    "click",
+                    toSmallHex(mouseButtonHexCode),
+                    toSmallHex(mouseButtonHexCode | MOUSE_DOWN_MASK),
+                    toSmallHex(mouseButtonHexCode | MOUSE_UP_MASK)
+            );
+        }
 
         try {
             yDoToolDaemonProcess = yDoToolDaemon.start();
@@ -83,5 +99,9 @@ public class AutoClick {
         if ("Left".equals(mouseButton)) mouseButtonHexCode = LEFT_MB;
         if ("Middle".equals(mouseButton)) mouseButtonHexCode = MIDDLE_MB;
         if ("Right".equals(mouseButton)) mouseButtonHexCode = RIGHT_MB;
+    }
+
+    public static void setDoubleClick(boolean newDoubleClick) {
+        doubleClick = newDoubleClick;
     }
 }
