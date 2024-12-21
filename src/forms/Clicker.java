@@ -12,6 +12,8 @@ public class Clicker extends JFrame {
     private JTextField secondsMinField;
     private JButton startButton;
     private JButton stopButton;
+    private JComboBox<String> mouseButtonCombo;
+    private JComboBox<String> clickTypeCombo;
 
     boolean enabled = false;
 
@@ -76,6 +78,7 @@ public class Clicker extends JFrame {
         stopButton.setEnabled(true);
 
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
+        AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
         AutoClick.enableAutoClicker();
     }
 
