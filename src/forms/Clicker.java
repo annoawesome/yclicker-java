@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public class Clicker extends JFrame {
     private JPanel contentPane;
-    private JLabel clickIntervalLabel;
     private JTextField secondsMaxField;
     private JTextField secondsMinField;
     private JButton startButton;
@@ -101,7 +100,7 @@ public class Clicker extends JFrame {
 
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
         AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
-        AutoClick.setDoubleClick("Double".equals((String) clickTypeCombo.getSelectedItem()));
+        AutoClick.setDoubleClick("Double".equals(clickTypeCombo.getSelectedItem()));
         AutoClick.setEnableDaemon(runYdotooldAutomaticallyCheckBox.isSelected());
 
         if (repeatForeverRadioButton.isSelected()) {
