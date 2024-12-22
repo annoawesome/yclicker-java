@@ -16,6 +16,7 @@ public class AutoClick {
     private static boolean enabled = false;
     private static boolean suppressed = true;
     private static boolean doubleClick = false;
+    private static boolean enableDaemon = false;
     private static int maxDelay = 100;
     private static int minDelay = 100;
     private static int mouseButtonHexCode = LEFT_MB;
@@ -93,7 +94,8 @@ public class AutoClick {
         }
 
         try {
-            yDoToolDaemonProcess = yDoToolDaemon.start();
+            if (enableDaemon)
+                yDoToolDaemonProcess = yDoToolDaemon.start();
             new Thread(loopedClickRunnable).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -147,6 +149,10 @@ public class AutoClick {
 
     public static void setRepeatTimes(int repeatTimes) {
         AutoClick.repeatTimes = repeatTimes;
+    }
+
+    public static void setEnableDaemon(boolean enableDaemon) {
+        AutoClick.enableDaemon = enableDaemon;
     }
 
     public static void uponFinish(Runnable runnable) {

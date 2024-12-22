@@ -19,6 +19,7 @@ public class Clicker extends JFrame {
     private JRadioButton repeatForeverRadioButton;
     private JTextField repeatIntTimesField;
     private JLabel repeatIntTimesLabel;
+    private JCheckBox runYdotooldAutomaticallyCheckBox;
 
     boolean enabled = false;
 
@@ -101,6 +102,7 @@ public class Clicker extends JFrame {
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
         AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
         AutoClick.setDoubleClick("Double".equals((String) clickTypeCombo.getSelectedItem()));
+        AutoClick.setEnableDaemon(runYdotooldAutomaticallyCheckBox.isSelected());
 
         if (repeatForeverRadioButton.isSelected()) {
             AutoClick.setRepeatTimes(0);
