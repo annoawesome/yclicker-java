@@ -1,9 +1,7 @@
 package forms;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HexFormat;
-import java.util.List;
 import java.util.Random;
 
 public class AutoClick {
@@ -21,11 +19,26 @@ public class AutoClick {
     private static int minDelay = 100;
     private static int mouseButtonHexCode = LEFT_MB;
     private static int holdTime = DEFAULT_HOLD_TIME;
+    private static int repeatTimes = 0;
 
-    private static Runnable clickRunnable = new Runnable() {
+    private static Runnable finalRunnable;
+
+    private static final Runnable clickRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                if (!suppressed)
+                    leftClickPb.start();
+            } catch (IOException ignored) {}
+        }
+    };
+
+    private static final Runnable loopedClickRunnable = new Runnable() {
         @Override
         public void run() {
             Random random = new Random();
+            int i = 0;
+
             while (enabled) {
                 try {
                     Thread.sleep(random.nextInt(minDelay, maxDelay + 1));
@@ -33,11 +46,19 @@ public class AutoClick {
                     throw new RuntimeException(e);
                 }
 
-                try {
-                    if (!suppressed)
-                        leftClickPb.start();
-                } catch (IOException e) {}
+                clickRunnable.run();
+
+                // for loop
+                if (repeatTimes > 0 && !suppressed) {
+                    i++;
+                    if (i > repeatTimes) {
+                        break;
+                    }
+                }
             }
+
+            if (repeatTimes > 0 && finalRunnable != null)
+                finalRunnable.run();
         }
     };
 
@@ -72,7 +93,7 @@ public class AutoClick {
 
         try {
             yDoToolDaemonProcess = yDoToolDaemon.start();
-            new Thread(clickRunnable).start();
+            new Thread(loopedClickRunnable).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -121,5 +142,13 @@ public class AutoClick {
 
     public static void setSuppressed(boolean suppressed) {
         AutoClick.suppressed = suppressed;
+    }
+
+    public static void setRepeatTimes(int repeatTimes) {
+        AutoClick.repeatTimes = repeatTimes;
+    }
+
+    public static void uponFinish(Runnable runnable) {
+        finalRunnable = runnable;
     }
 }

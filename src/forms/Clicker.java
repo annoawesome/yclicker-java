@@ -16,6 +16,9 @@ public class Clicker extends JFrame {
     private JComboBox<String> clickTypeCombo;
     private JTextField holdTimeField;
     private JCheckBox suppressWhenFocusedCheckBox;
+    private JRadioButton repeatForeverRadioButton;
+    private JTextField repeatIntTimesField;
+    private JLabel repeatIntTimesLabel;
 
     boolean enabled = false;
 
@@ -30,6 +33,11 @@ public class Clicker extends JFrame {
         startButton.addActionListener(actionEvent -> startButtonClicked());
 
         stopButton.addActionListener(actionEvent -> stopButtonClicked());
+
+        repeatForeverRadioButton.addActionListener(actionEvent -> {
+            repeatIntTimesField.setEnabled(!repeatForeverRadioButton.isSelected());
+            repeatIntTimesLabel.setEnabled(!repeatForeverRadioButton.isSelected());
+        });
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyEvent -> {
             if (keyEvent.getID() == KeyEvent.KEY_PRESSED && keyEvent.getKeyCode() == KeyEvent.VK_F8) {
@@ -93,6 +101,19 @@ public class Clicker extends JFrame {
         AutoClick.setClickDelay(maxDelay.get(), minDelay.get());
         AutoClick.setMouseButton((String) mouseButtonCombo.getSelectedItem());
         AutoClick.setDoubleClick("Double".equals((String) clickTypeCombo.getSelectedItem()));
+
+        if (repeatForeverRadioButton.isSelected()) {
+            AutoClick.setRepeatTimes(0);
+        } else {
+            Optional<Integer> repeatTimes = getIntFromString(repeatIntTimesField.getText());
+
+            if (repeatTimes.isEmpty() || repeatTimes.get() < 1)
+                repeatTimes = Optional.of(1);
+
+            AutoClick.setRepeatTimes(repeatTimes.get());
+            AutoClick.uponFinish(this::stopButtonClicked);
+        }
+
         AutoClick.enableAutoClicker();
     }
 
