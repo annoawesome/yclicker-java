@@ -169,6 +169,7 @@
             </constraints>
             <properties>
               <text value="Hold Time (ms)"/>
+              <toolTipText value="The time between pressing and releasing a mouse button"/>
             </properties>
           </component>
           <component id="3deaa" class="javax.swing.JTextField" binding="holdTimeField">
@@ -188,6 +189,7 @@
         <properties>
           <selected value="true"/>
           <text value="Suppress When Focused"/>
+          <toolTipText value="Suppress automatic clicks when this window is focused"/>
         </properties>
       </component>
       <grid id="b0b16" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
