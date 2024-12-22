@@ -87,7 +87,7 @@ public class Clicker extends JFrame {
         if (holdTime.isEmpty())
             AutoClick.setDefaultHoldTime();
         else
-            AutoClick.setHoldTime(holdTime.get());
+            AutoClick.setHoldTime(Math.max(holdTime.get(), AutoClick.MIN_HOLD_TIME));
 
         enabled = true;
 

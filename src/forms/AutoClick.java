@@ -11,6 +11,7 @@ public class AutoClick {
     private static final int MOUSE_DOWN_MASK = 0x40;
     private static final int MOUSE_UP_MASK = 0x80;
     private static final int DEFAULT_HOLD_TIME = 25;
+    public static final int MIN_HOLD_TIME = 25;
 
     private static boolean enabled = false;
     private static boolean suppressed = true;
